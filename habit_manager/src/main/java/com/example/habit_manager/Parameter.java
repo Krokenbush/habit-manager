@@ -19,8 +19,7 @@ public class Parameter {
     @Column(name = "param_description")
     private String description;
 
-    @ManyToOne
-    private Habit HabitId;
+    private Long habitId;
 
     public Parameter () {}
 
@@ -30,8 +29,8 @@ public class Parameter {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setHabitId(Habit habitId) {
-        HabitId = habitId;
+    public void setHabitId(Long habitId) {
+        this.habitId = habitId;
     }
     public void setValue(int value) {
         this.value = value;
@@ -40,8 +39,8 @@ public class Parameter {
     public Long getId() {
         return id;
     }
-    public Habit getHabitId() {
-        return HabitId;
+    public Long getHabitId() {
+        return habitId;
     }
     public String getName() {
         return name;

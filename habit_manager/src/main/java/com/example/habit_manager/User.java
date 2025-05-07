@@ -24,18 +24,11 @@ public class User {
     @Column(name = "create_date")
     private Date createDate;
 
-    @OneToMany
-    ArrayList<Habit> habits;
-
-    public User (String name, ArrayList<Habit> habits) {
+    public User (String name) {
         this.name = name;
-        this.habits = habits;
     }
     public User () {}
 
-    public void setHabits(ArrayList<Habit> habits) {
-        this.habits = habits;
-    }
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
@@ -49,9 +42,6 @@ public class User {
         this.name = name;
     }
 
-    public ArrayList<Habit> getHabits() {
-        return habits;
-    }
     public String getName() {
         return name;
     }

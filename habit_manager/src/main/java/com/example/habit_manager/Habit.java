@@ -17,15 +17,11 @@ public class Habit {
     @Column(name = "habit_name")
     private String name;
 
-    @OneToMany
-    private ArrayList<Parameter> parameters;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "regularity")
     private Regularity regularity;
 
-    @ManyToOne
-    private User user_id;
+    private Long userId;
 
     public Habit (String name, Regularity regularity) {
         this.name = name;
@@ -36,8 +32,11 @@ public class Habit {
     public void setName (String name) {
         this.name = name;
     }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
     public void setRegularity(Regularity regularity) {
-        this.regularity = this.regularity;
+        this.regularity = regularity;
     }
 
     public String getName () {
@@ -45,5 +44,11 @@ public class Habit {
     }
     public Regularity getRegularity () {
         return regularity;
+    }
+    public Long getUserId() {
+        return userId;
+    }
+    public Long getId() {
+        return id;
     }
 }

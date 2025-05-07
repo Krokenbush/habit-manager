@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ParameterRepository extends CrudRepository <Parameter, Long> {
-    
+    void deleteAllByHabitId (Long habitId);
 }
