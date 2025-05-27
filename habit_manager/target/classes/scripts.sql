@@ -10,7 +10,7 @@ CREATE TABLE e_habit
 (
     habit_id bigSerial primary key,
     habit_name varchar(256),
-    regularity varchar(256)
+    regularity varchar(256),
     user_id bigSerial REFERENCES e_user(user_id)
 )
 
@@ -19,7 +19,21 @@ CREATE TABLE e_parameter
     param_id bigSerial primary key,
     param_name varchar(256),
     param_value int,
-    param_description varchar(512)
+    param_description varchar(512),
+    habit_id bigSerial REFERENCES e_habit(habit_id)
+)
+
+CREATE TABLE e_audit_table
+(
+    audit_table_id bigSerial primary key,
+    user_id bigSerial REFERENCES e_user(user_id)
+)
+
+CREATE TABLE e_note
+(
+    note_id bigSerial primary key,
+    create_date timestamp,
+    audit_table_id bigSerial REFERENCES e_audit_table(audit_table_id),
     habit_id bigSerial REFERENCES e_habit(habit_id)
 )
 

@@ -27,7 +27,6 @@ public class ParameterService extends AbstractService {
         if (param == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            parameterRepository.deleteAllByHabitId(parameterId);
             parameterRepository.delete(param);
             return new ResponseEntity<>(param, HttpStatus.OK);
         }
