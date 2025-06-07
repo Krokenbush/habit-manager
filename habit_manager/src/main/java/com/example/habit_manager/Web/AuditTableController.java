@@ -1,6 +1,7 @@
 package com.example.habit_manager.Web;
 
 import com.example.habit_manager.DAO.Module.AuditTable;
+import com.example.habit_manager.Exception.NotFoundException;
 import com.example.habit_manager.Services.AuditTableService;
 import com.example.habit_manager.Services.HabitService;
 import jakarta.transaction.Transactional;
@@ -21,13 +22,13 @@ public class AuditTableController {
     }
 
     @GetMapping("/getAuditTable")
-    public ResponseEntity<AuditTable> getAuditTable(@RequestParam(name = "audit_table_id") Long id) {
+    public ResponseEntity<AuditTable> getAuditTable(@RequestParam(name = "audit_table_id") Long id) throws NotFoundException {
         return auditTableService.getAuditTable(id);
     }
 
     @Transactional
     @GetMapping("/deleteAuditTable")
-    public ResponseEntity<AuditTable> deleteAuditTable(@RequestParam(name = "audit_table_id") Long id) {
+    public ResponseEntity<AuditTable> deleteAuditTable(@RequestParam(name = "audit_table_id") Long id) throws NotFoundException {
         return auditTableService.deleteAuditTable(id);
     }
 }

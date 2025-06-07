@@ -1,6 +1,7 @@
 package com.example.habit_manager.Web;
 
 import com.example.habit_manager.DAO.Module.User;
+import com.example.habit_manager.Exception.NotFoundException;
 import com.example.habit_manager.Services.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,13 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public ResponseEntity <User> getUser(@RequestParam(name = "user_id") Long userId) {
+    public ResponseEntity <User> getUser(@RequestParam(name = "user_id") Long userId) throws NotFoundException  {
         return userService.getUser(userId);
     }
 
     @Transactional
     @GetMapping("/deleteUser")
-    public ResponseEntity <User> deleteUser(@RequestParam(name = "user_id") Long userId) {
+    public ResponseEntity <User> deleteUser(@RequestParam(name = "user_id") Long userId) throws NotFoundException {
         return userService.deleteUser(userId);
     }
 }

@@ -2,6 +2,7 @@ package com.example.habit_manager.Services;
 
 import com.example.habit_manager.DAO.Module.Note;
 import com.example.habit_manager.DAO.Repository.NoteRepository;
+import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,14 @@ public class NoteService extends AbstractService {
         noteRepository.save(n);
         return new ResponseEntity<>(n, HttpStatus.OK);
     }
-    public ResponseEntity<Note> getNote (Long id) {
+    public ResponseEntity<Note> getNote (Long id) throws NotFoundException {
         Note n = noteRepository.findById(id).orElse(null);
         return new ResponseEntity<>(n, checkByNull(n));
     }
-    public ResponseEntity<Note> deleteNote (Long id) {
+    public ResponseEntity<Note> deleteNote (Long id) throws NotFoundException {
         Note n = noteRepository.findById(id).orElse(null);
         if (n == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Note не найден.");
         } else {
             noteRepository.delete(n);
             return new ResponseEntity<>(n, HttpStatus.OK);

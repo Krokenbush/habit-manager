@@ -2,6 +2,7 @@ package com.example.habit_manager.Services;
 
 import com.example.habit_manager.DAO.Module.Parameter;
 import com.example.habit_manager.DAO.Repository.ParameterRepository;
+import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,15 @@ public class ParameterService extends AbstractService {
         return new ResponseEntity<>(param, HttpStatus.OK);
     }
 
-    public ResponseEntity <Parameter> getParameter (Long parameterId) {
+    public ResponseEntity <Parameter> getParameter (Long parameterId) throws NotFoundException {
         Parameter param = parameterRepository.findById(parameterId).orElse(null);
         return new ResponseEntity<>(param, checkByNull(param));
     }
 
-    public ResponseEntity <Parameter> deleteParameter (Long parameterId) {
+    public ResponseEntity <Parameter> deleteParameter (Long parameterId) throws NotFoundException {
         Parameter param = parameterRepository.findById(parameterId).orElse(null);
         if (param == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Parameter не найден.");
         } else {
             parameterRepository.delete(param);
             return new ResponseEntity<>(param, HttpStatus.OK);

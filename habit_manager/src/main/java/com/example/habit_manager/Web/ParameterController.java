@@ -1,6 +1,7 @@
 package com.example.habit_manager.Web;
 
 import com.example.habit_manager.DAO.Module.Parameter;
+import com.example.habit_manager.Exception.NotFoundException;
 import com.example.habit_manager.Services.ParameterService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,13 @@ public class ParameterController {
     }
 
     @GetMapping("/getParameter")
-    public ResponseEntity<Parameter> getParameter(@RequestParam(name = "parameter_id") Long parameterId) {
+    public ResponseEntity<Parameter> getParameter(@RequestParam(name = "parameter_id") Long parameterId) throws NotFoundException {
         return parameterService.getParameter(parameterId);
     }
 
     @Transactional
     @GetMapping("/deleteParameter")
-    public ResponseEntity<Parameter> deleteParameter(@RequestParam(name = "parameter_id") Long parameterId) {
+    public ResponseEntity<Parameter> deleteParameter(@RequestParam(name = "parameter_id") Long parameterId) throws NotFoundException {
        return parameterService.deleteParameter(parameterId);
     }
 }

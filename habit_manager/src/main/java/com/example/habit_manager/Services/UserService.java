@@ -5,6 +5,7 @@ import com.example.habit_manager.DAO.Module.User;
 import com.example.habit_manager.DAO.Repository.HabitRepository;
 import com.example.habit_manager.DAO.Repository.ParameterRepository;
 import com.example.habit_manager.DAO.Repository.UserRepository;
+import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +28,16 @@ public class UserService extends AbstractService {
         return ResponseEntity.ok(u);
     }
 
-    public ResponseEntity <User> getUser (Long userId) {
+    public ResponseEntity <User> getUser (Long userId) throws NotFoundException {
         User u = userRepository.findById(userId).orElse(null);
         return new ResponseEntity<>(u, checkByNull(u));
     }
 
-    public ResponseEntity<User> deleteUser (Long userId) {
+    public ResponseEntity<User> deleteUser (Long userId) throws NotFoundException {
         User u = userRepository.findById(userId).orElse(null);
 
         if (u == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("User не найден.");
         }
 
         List<Habit> habits = habitRepository.findAllByUserId(userId);

@@ -1,6 +1,7 @@
 package com.example.habit_manager.Web;
 
 import com.example.habit_manager.DAO.Module.Note;
+import com.example.habit_manager.Exception.NotFoundException;
 import com.example.habit_manager.Services.NoteService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,13 @@ public class NoteController {
     }
 
     @GetMapping("/getNote")
-    public ResponseEntity<Note> getNote (@RequestParam(name = "note_id") Long id) {
+    public ResponseEntity<Note> getNote (@RequestParam(name = "note_id") Long id) throws NotFoundException  {
         return noteService.getNote(id);
     }
 
     @Transactional
     @GetMapping("/deleteNote")
-    public ResponseEntity<Note> deleteNote (@RequestParam(name = "note_id") Long id) {
+    public ResponseEntity<Note> deleteNote (@RequestParam(name = "note_id") Long id) throws NotFoundException {
         return noteService.deleteNote(id);
     }
 }

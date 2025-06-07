@@ -4,6 +4,7 @@ import com.example.habit_manager.DAO.Module.Habit;
 import com.example.habit_manager.DAO.Repository.HabitRepository;
 import com.example.habit_manager.DAO.Repository.ParameterRepository;
 import com.example.habit_manager.DAO.Module.Regularity;
+import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,15 @@ public class HabitService extends AbstractService {
         return new ResponseEntity<>(h, HttpStatus.OK);
     }
 
-    public ResponseEntity <Habit> getHabit (Long habitId) {
+    public ResponseEntity <Habit> getHabit (Long habitId) throws NotFoundException {
         Habit h = habitRepository.findById(habitId).orElse(null);
         return new ResponseEntity<>(h, checkByNull(h));
     }
 
-    public ResponseEntity <Habit> deleteHabit (Long habitId) {
+    public ResponseEntity <Habit> deleteHabit (Long habitId) throws NotFoundException {
         Habit h = habitRepository.findById(habitId).orElse(null);
         if (h == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Habit не найден.");
         } else {
             parameterRepository.deleteAllByHabitId(habitId);
             habitRepository.delete(h);

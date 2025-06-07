@@ -3,6 +3,7 @@ package com.example.habit_manager.Services;
 import com.example.habit_manager.DAO.Module.AuditTable;
 import com.example.habit_manager.DAO.Repository.AuditTableRepository;
 import com.example.habit_manager.DAO.Repository.NoteRepository;
+import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,14 @@ public class AuditTableService extends AbstractService {
         auditTableRepository.save(at);
         return new ResponseEntity<>(at, HttpStatus.OK);
     }
-    public ResponseEntity<AuditTable> getAuditTable (Long id) {
+    public ResponseEntity<AuditTable> getAuditTable (Long id) throws NotFoundException {
         AuditTable at = auditTableRepository.findById(id).orElse(null);
         return new ResponseEntity<>(at, checkByNull(at));
     }
-    public ResponseEntity<AuditTable> deleteAuditTable (Long id) {
+    public ResponseEntity<AuditTable> deleteAuditTable (Long id) throws NotFoundException {
         AuditTable at = auditTableRepository.findById(id).orElse(null);
         if (at == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("AuditTable не найден.");
         } else {
             noteRepository.deleteAllByAuditTableId(id);
             auditTableRepository.delete(at);
