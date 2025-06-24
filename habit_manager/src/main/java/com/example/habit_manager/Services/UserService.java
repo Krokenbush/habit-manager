@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,14 @@ public class UserService extends AbstractService {
         habitRepository.deleteAllByUserId(userId);
         userRepository.delete(u);
         return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    public List <Habit> getAllHabits (Long userId) throws NotFoundException {
+        User u = userRepository.findById(userId).orElse(null);
+        if (u == null) {
+            throw new NotFoundException("User не найден");
+        }
+        return habitRepository.findAllByUserId(userId);
     }
 
     private User createUser() {

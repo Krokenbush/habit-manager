@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of habbits</title>
+</head>
+<body>
+    <h1 th:text="'Habits of ' + ${userName} + ':'">Habits</h1>
+    <ul th:each="name:${names}">
+        <li><h3 th:text="${name}">Habit Name</h3></li>
+    </ul>
+</body>
+</html>
