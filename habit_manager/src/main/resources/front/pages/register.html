@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <div th:if="${param.alreadyExists}">
+        You have been already exists.
+    </div>
+    <form th:action="@{/register}" th:object="${user}" method="post">
+    <div><input type="text" th:field="*{username}" placeholder="username" required></div>
+    <div><input type="text" th:field="*{email}" placeholder="email" required></div>
+    <div><input type="text" th:field="*{password}" placeholder="password" required></div>
+    <div><input type="submit" value="Sign Up"/></div>
+</form>
+</body>
+</html>
