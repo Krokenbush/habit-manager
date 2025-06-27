@@ -9,6 +9,9 @@ import com.example.habit_manager.Exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -16,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class UserService extends AbstractService {
+public class UserService extends AbstractService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -24,9 +27,11 @@ public class UserService extends AbstractService {
     @Autowired
     private ParameterRepository parameterRepository;
 
-    public ResponseEntity <User> insertUser () {
-        User u = userRepository.save(createUser());
-        return ResponseEntity.ok(u);
+    public void saveUser (User user) throws Exception {
+        if (userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
+            throw new Exception("User already exists");
+        }
+        User u = userRepository.save(user);
     }
 
     public ResponseEntity <User> getUser (Long userId) throws NotFoundException {
@@ -58,12 +63,8 @@ public class UserService extends AbstractService {
         return habitRepository.findAllByUserId(userId);
     }
 
-    private User createUser() {
-        User user = new User();
-        user.setName("Georgy");
-        user.setEmail("r@r.com");
-        user.setPassword("reliablePassword228");
-        user.setCreateDate(new Date());
-        return user;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

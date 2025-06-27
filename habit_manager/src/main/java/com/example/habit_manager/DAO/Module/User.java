@@ -1,19 +1,27 @@
 package com.example.habit_manager.DAO.Module;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "e_user")
 @Entity
-public class User {
+@Getter
+@Setter
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
     @Column(name = "user_name")
-    private String name;
+    private String username;
 
     @Column(name = "passwd")
     private String password;
@@ -24,37 +32,30 @@ public class User {
     @Column(name = "create_date")
     private Date createDate;
 
-    public User (String name) {
-        this.name = name;
-    }
     public User () {}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
-    public String getPassword() {
-        return password;
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
-    public String getEmail() {
-        return email;
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
-    public Date getCreateDate() {
-        return createDate;
-    }
-    public Long getId() {
-        return id;
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         return "Error";
     }
 
-    @ExceptionHandler({BadRequestException.class, NoResourceFoundException.class})
+    @ExceptionHandler({BadRequestException.class, NoResourceFoundException.class, NullPointerException.class})
     public String handleBadRequestException (Exception e, Model model) {
         model.addAttribute("status", HttpStatus.BAD_REQUEST);
         model.addAttribute("userMessage","Некорректный запрос.");
