@@ -28,7 +28,27 @@
 
 ## Структура проекта
 
-├───src │ ├───main │ │ ├───java │ │ │ └───com │ │ │ └───example │ │ │ └───habit_manager │ │ │ ├───configs # Конфигурационные классы │ │ │ ├───DAO # Data Access Objects и репозитории │ │ │ │ ├───Module # Модули DAO │ │ │ │ └───Repository # Репозитории для работы с БД │ │ │ ├───Exception # Обработчики исключений │ │ │ ├───Services # Сервисы бизнес-логики │ │ │ └───Web # Контроллеры и веб-компоненты │ │ └───resources │ │ ├───front # Фронтенд ресурсы (шрифты) │ │ ├───pages # HTML страницы (например, login.html, register.html) │ │ └───styles # CSS стили │ │ └───templates # Шаблоны Thymeleaf для отображения страниц │ └───test # Тесты проекта (пока что пусто или для будущих тестов)
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── example
+│   │           └── habit_manager
+│   │               ├── configs             # Конфигурационные классы
+│   │               ├── DAO                 # Data Access Objects и репозитории
+│   │               │   ├── Module          # Модули DAO
+│   │               │   └── Repository      # Репозитории для работы с БД
+│   │               ├── Exception           # Обработчики исключений
+│   │               ├── Services            # Сервисы бизнес-логики
+│   │               └── Web                 # Контроллеры и веб-компоненты
+│   └── resources
+│       ├── front                         # Фронтенд ресурсы (шрифты)
+│       │   ├── content
+│       │   │   └── fonts
+│       ├── pages                         # HTML страницы (например, login.html, register.html)
+│       ├── styles                        # CSS стили
+│       └── templates                     # Шаблоны Thymeleaf для отображения страниц
+└── test                                    # Тесты проекта (пока что пусто или для будущих тестов)
 
 
 
