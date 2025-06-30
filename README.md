@@ -50,10 +50,10 @@
 1. **Клонируйте репозиторий:**
 
 ```bash
-git clone <ваш_репозиторий_url>
+git clone <https://github.com/Krokenbush/habit-manager>
 ```
 Настройте базу данных PostgreSQL:
-Создайте базу данных и настройте параметры подключения в application.properties или application.yml.
+Создайте базу данных (необходимые команды указаны в scripts.sql) и настройте параметры подключения в application.properties или application.yml.
 
 Запустите приложение:
 Используйте IDE или командную строку:
